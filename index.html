@@ -3,182 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Find Your Music｜找到你的下一首歌</title>
+<meta name="theme-color" content="#101019">
+<title>Find Your Music｜找到你的下一首愛歌</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: #101018;
-  color: #f5f5fa;
-  font-family: system-ui, sans-serif;
+:root{
+  --bg:#101019;--panel:#1b1b2a;--text:#f5f3ff;
+  --muted:#aaa8bf;--accent:#b39aff;--border:#363449;
 }
-main { max-width: 760px; margin: auto; padding: 48px 22px; }
-.logo { color: #b6a1ff; letter-spacing: 3px; font-size: 13px; }
-h1 { font-size: clamp(32px, 7vw, 52px); margin-bottom: 12px; }
-p { color: #b8b8ca; line-height: 1.7; }
-.panel {
-  margin-top: 30px; padding: 26px;
-  background: #1c1c2a; border: 1px solid #343448;
-  border-radius: 22px;
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--text);font-family:system-ui,sans-serif;
+  background:radial-gradient(ellipse at top right,#302349 0,transparent 55%),var(--bg);
+  min-height:100vh;
 }
-label { display: block; margin: 20px 0 8px; font-weight: 600; }
-select, button {
-  width: 100%; padding: 14px; border-radius: 12px;
-  font: inherit; color: white;
+button,a,select{-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{
+  outline:3px solid var(--accent);outline-offset:4px;
 }
-select { background: #282839; border: 1px solid #494960; }
-button {
-  margin-top: 26px; background: #8560e8;
-  border: none; cursor: pointer; font-weight: 700;
+button:disabled{opacity:.4;cursor:default}
+main{max-width:960px;margin:auto;padding:28px 22px 60px}
+header{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.brand{letter-spacing:2px;color:var(--accent);font-size:13px;font-weight:800}
+.sub{color:var(--muted);font-size:12px}
+h1{font-size:clamp(36px,7vw,64px);line-height:1.15;margin:35px 0 16px}
+h2{font-size:clamp(25px,5vw,36px);margin:16px 0}
+p{color:var(--muted);line-height:1.75}
+.hero{padding:35px 0 16px}
+.hero strong{color:var(--accent)}
+.pill{
+  display:inline-block;border:1px solid var(--border);border-radius:30px;
+  padding:7px 12px;font-size:12px;color:var(--muted);margin:5px 5px 0 0;
 }
-button:hover { background: #9775f2; }
-button:focus-visible, select:focus-visible, a:focus-visible {
-  outline: 3px solid #d5c7ff; outline-offset: 4px;
+.panel{
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:24px;padding:clamp(22px,5vw,40px);margin-top:28px;
 }
-.card {
-  background: #1c1c2a; padding: 22px;
-  margin: 14px 0; border-radius: 16px;
-  border: 1px solid #343448;
+.primary{
+  border:0;background:var(--accent);color:#191125;
+  padding:15px 24px;border-radius:13px;font-weight:750;
 }
-.card h3 { margin: 0 0 6px; }
-.artist { color: #c4afff; }
-a { display: inline-block; color: #c4afff; margin-top: 8px; }
-.note { font-size: 13px; margin-top: 28px; }
+.primary:hover{background:#c8b5ff}
+.secondary{
+  background:transparent;color:var(--text);border:1px solid var(--border);
+  padding:11px 16px;border-radius:12px;
+}
+.secondary:hover{border-color:var(--accent)}
+.progress{height:5px;background:#343145;border-radius:10px;overflow:hidden}
+.progress span{display:block;height:100%;background:var(--accent);transition:width .25s}
+.step{font-size:12px;letter-spacing:2px;color:var(--accent);margin-top:24px}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:24px 0}
+.option{
+  text-align:left;padding:19px;border-radius:15px;border:1px solid var(--border);
+  background:#232233;color:var(--text);
+}
+.option:hover{border-color:#8a76b1;background:#2b293e}
+.option[aria-pressed="true"]{
+  border-color:var(--accent);background:#39304e;
+  box-shadow:0 0 0 1px var(--accent);
+}
+.option b{display:block;font-size:16px;margin-bottom:6px}
+.option small{display:block;color:var(--muted);line-height:1.5}
+.controls{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.result-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:30px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{
+  background:var(--panel);border:1px solid var(--border);padding:24px;
+  border-radius:20px;display:flex;flex-direction:column;
+}
+.card h3{font-size:23px;margin:12px 0 6px;overflow-wrap:anywhere}
+.artist{color:var(--accent);font-size:15px}
+.number{color:var(--muted);font-size:12px;letter-spacing:2px}
+.tags{margin:14px 0 0}
+.tag{font-size:11px;border-radius:6px;background:#302b40;color:#d8cafa;padding:5px 8px;display:inline-block;margin:0 5px 5px 0}
+.reason{font-size:14px;flex:1}
+.links{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0 18px}
+.links a{color:#c6b2ff;font-size:13px;text-decoration:none}
+.links a:hover{text-decoration:underline}
+.feedback{display:flex;gap:8px;flex-wrap:wrap}
+.feedback button{font-size:12px;padding:9px 12px}
+.summary{display:flex;flex-wrap:wrap;gap:7px;margin:15px 0}
+.summary span{font-size:12px;background:#282337;border-radius:30px;padding:8px 12px;color:#d5c5ee}
+.note{font-size:12px;margin-top:32px}
+.empty{padding:30px;color:var(--muted)}
+[hidden]{display:none!important}
+@media(max-width:600px){
+  .options,.cards{grid-template-columns:1fr}
+  .hero{padding-top:15px}
+  .result-head{align-items:flex-start}
+  header .sub{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important;transition:none!important}
+}
 </style>
 </head>
 <body>
 <main>
-  <div class="logo">FIND YOUR MUSIC</div>
-  <h1>你的下一首愛歌，<br>從這裡開始。</h1>
-  <p>告訴我你現在的感覺，找幾首可能對味的歌。</p>
+<header>
+  <div class="brand">FIND YOUR MUSIC</div>
+  <div class="sub">FOLLOW YOUR MOOD. FIND YOUR SOUND.</div>
+  <button class="secondary" id="showSaved">♡ 收藏</button>
+</header>
 
-  <form id="quiz" class="panel">
-    <label for="mood">你現在想聽什麼感覺？</label>
-    <select id="mood">
-      <option value="any">都可以，讓我探索</option>
-      <option value="happy">開心、想跟著唱</option>
-      <option value="sad">有點難過，想被理解</option>
-      <option value="chill">放鬆、深夜獨處</option>
-      <option value="energy">充滿能量、運動一下</option>
-    </select>
+<section id="home" class="hero">
+  <span class="pill">60 首精選歌曲</span>
+  <span class="pill">6 個選擇，探索你的聲音</span>
+  <h1>總有一首歌，<br>剛好<strong>懂現在的你。</strong></h1>
+  <p>深夜、通勤，或準備重新出發。<br>
+     跟著直覺選，找到幾首值得按下播放的歌。</p>
+  <button class="primary" id="start">探索我的音樂 →</button>
+  <p class="note">不用登入，也不用懂曲風。大約一分鐘就能完成。</p>
+</section>
 
-    <label for="genre">偏好哪種曲風？</label>
-    <select id="genre">
-      <option value="any">不限曲風</option>
-      <option value="pop">流行 Pop</option>
-      <option value="rnb">節奏藍調 R&amp;B</option>
-      <option value="indie">獨立／另類 Indie</option>
-      <option value="rock">搖滾 Rock</option>
-    </select>
+<section id="quiz" class="panel" hidden aria-labelledby="question">
+  <div class="progress"><span id="bar"></span></div>
+  <div class="step" id="step"></div>
+  <h2 id="question" tabindex="-1"></h2>
+  <p id="hint"></p>
+  <div class="options" id="options"></div>
+  <div class="controls">
+    <button class="secondary" id="back">← 上一步</button>
+    <button class="primary" id="next" disabled>下一題 →</button>
+  </div>
+</section>
 
-    <label for="language">想聽哪種語言？</label>
-    <select id="language">
-      <option value="any">都可以</option>
-      <option value="en">英文</option>
-      <option value="zh">中文</option>
-    </select>
+<section id="result" hidden>
+  <div class="result-head">
+    <div>
+      <div class="step">YOUR NEXT FAVORITES</div>
+      <h2 id="resultTitle" tabindex="-1">試試這幾首。</h2>
+    </div>
+    <button class="secondary" id="restart">重新探索 ↻</button>
+  </div>
+  <p id="resultIntro"></p>
+  <div class="summary" id="summary"></div>
+  <div class="cards" id="cards"></div>
+  <button class="primary" id="refresh">再推薦一組 ↻</button>
+</section>
 
-    <button type="submit">找到我的音樂 →</button>
-  </form>
+<section id="savedView" hidden>
+  <div class="result-head">
+    <h2 tabindex="-1" id="savedTitle">你的收藏 ♡</h2>
+    <button class="secondary" id="closeSaved">返回</button>
+  </div>
+  <p>留住對味的歌，下次回到這個瀏覽器還能找到。</p>
+  <div class="cards" id="savedCards"></div>
+</section>
 
-  <section id="results" aria-live="polite"></section>
-  <p class="note">
-    第一版使用精選歌單與標籤配對，推薦結果供你探索新音樂。
-  </p>
+<p class="note">
+  推薦依精選歌庫與人工標籤配對，曲風、情緒及情境帶有主觀性。
+  連結會開啟平台搜尋頁，網站本身不播放音樂。
+</p>
+<div id="announcement" role="status" class="sub"></div>
 </main>
 
 <script>
-const songs = [
-  { title: "Treasure", artist: "Bruno Mars",
-    mood: ["happy", "energy"], genre: ["pop", "rnb"], lang: "en" },
-  { title: "When I Was Your Man", artist: "Bruno Mars",
-    mood: ["sad", "chill"], genre: ["pop"], lang: "en" },
-  { title: "ILYSB", artist: "LANY",
-    mood: ["chill", "happy"], genre: ["pop", "indie"], lang: "en" },
-  { title: "Malibu Nights", artist: "LANY",
-    mood: ["sad", "chill"], genre: ["pop", "indie"], lang: "en" },
-  { title: "STAY", artist: "The Kid LAROI & Justin Bieber",
-    mood: ["energy", "sad"], genre: ["pop"], lang: "en" },
-  { title: "Location", artist: "Khalid",
-    mood: ["chill"], genre: ["rnb"], lang: "en" },
-  { title: "Blinding Lights", artist: "The Weeknd",
-    mood: ["energy", "happy"], genre: ["pop"], lang: "en" },
-  { title: "Best Part", artist: "Daniel Caesar feat. H.E.R.",
-    mood: ["chill"], genre: ["rnb"], lang: "en" },
-  { title: "Creep", artist: "Radiohead",
-    mood: ["sad"], genre: ["rock", "indie"], lang: "en" },
-  { title: "突然好想你", artist: "五月天",
-    mood: ["sad"], genre: ["pop", "rock"], lang: "zh" },
-  { title: "派對動物", artist: "五月天",
-    mood: ["happy", "energy"], genre: ["pop", "rock"], lang: "zh" },
-  { title: "想見你想見你想見你", artist: "八三夭",
-    mood: ["sad", "energy"], genre: ["pop", "rock"], lang: "zh" },
-  { title: "愛人錯過", artist: "告五人",
-    mood: ["energy", "sad"], genre: ["pop", "indie"], lang: "zh" },
-  { title: "刻在我心底的名字", artist: "盧廣仲",
-    mood: ["sad", "chill"], genre: ["pop"], lang: "zh" },
-  { title: "小幸運", artist: "田馥甄",
-    mood: ["chill", "sad"], genre: ["pop"], lang: "zh" }
-];
-
-document.getElementById("quiz").addEventListener("submit", event => {
-  event.preventDefault();
-  const mood = document.getElementById("mood").value;
-  const genre = document.getElementById("genre").value;
-  const language = document.getElementById("language").value;
-  const results = document.getElementById("results");
-
-  const ranked = songs
-    .filter(song => language === "any" || song.lang === language)
-    .map(song => {
-      const reasons = [];
-      let score = 0;
-      if (mood !== "any" && song.mood.includes(mood)) {
-        score += 3;
-        reasons.push("符合你選擇的心情");
-      }
-      if (genre !== "any" && song.genre.includes(genre)) {
-        score += 2;
-        reasons.push("包含你偏好的曲風");
-      }
-      return { ...song, score, reasons, tie: Math.random() };
-    })
-    .sort((a, b) => b.score - a.score || a.tie - b.tie)
-    .slice(0, 4);
-
-  results.replaceChildren();
-  const heading = document.createElement("h2");
-  heading.textContent = "試試這幾首 🎧";
-  results.appendChild(heading);
-
-  ranked.forEach(song => {
-    const card = document.createElement("article");
-    card.className = "card";
-
-    const title = document.createElement("h3");
-    title.textContent = song.title;
-    const artist = document.createElement("div");
-    artist.className = "artist";
-    artist.textContent = song.artist;
-
-    const reason = document.createElement("p");
-    reason.textContent = song.reasons.length
-      ? song.reasons.join("，") + "。"
-      : "探索推薦：試試你平常可能不會點開的歌曲。";
-
-    const link = document.createElement("a");
-    link.textContent = "去 YouTube 找這首歌 ↗";
-    link.href = "https://www.youtube.com/results?search_query=" +
-      encodeURIComponent(song.artist + " " + song.title);
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-
-    card.append(title, artist, reason, link);
-    results.appendChild(card);
-  });
-
-  results.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-</script>
-</body>
-</html>
+// 欄位：歌名 | 歌手 | 語言 | 曲風 | 情緒 | 速度 | 情境 | 聆聽重點
+// 同一欄可用逗號加入多個標籤。
+const raw = `
+Treasure|Bruno Mars|en|pop,rnb|happy,confident|fast|party,drive,workout|beat,voice
+When I Was Your Man|Bruno Mars|en|pop|sad,romantic|slow|night|lyrics,voice
+Just the Way You Are|Bruno Mars|en|pop|romantic,happy|mid|drive,commute|melody,voice
+Leave the Door Open|Silk Sonic|en|rnb|romantic,chill|slow|night,drive|voice,melody
+ILYSB|LANY|en|pop,indie|romantic,dreamy|mid|night,drive,commute|melody
+Malibu Nights|LANY|en|pop,indie|sad|slow|night|lyrics,melody
+Super Far|LANY|en|pop,indie|sad,dreamy|mid|drive,commute|melody,beat
+Thru These Tears|LANY|en|pop,indie|sad,confident|mid|commute,drive|lyrics,melody
+STAY|The Kid LAROI & Justin Bieber|en|pop|sad,energy|fast|workout,drive,party|beat,melody
+WITHOUT YOU|The Kid LAROI|en|pop|sad|mid|night,commute|lyrics,voice
+Love Yourself|Justin Bieber|en|pop|chill,sad|slow|night,study|lyrics,voice
+Sorry|Justin Bieber|en|pop,electronic|happy,energy|fast|party,workout|beat
+Location|Khalid|en|rnb|chill,romantic|slow|night,study|voice,beat
+Better|Khalid|en|rnb,pop|chill,romantic|mid|night,drive|voice,beat
+Talk|Khalid|en|rnb,pop|chill,happy|mid|drive,commute|beat,melody
+Blinding Lights|The Weeknd|en|pop,electronic|energy,confident|fast|drive,workout,party|beat,melody
+Save Your Tears|The Weeknd|en|pop|sad,dreamy|mid|drive,commute|melody
+Out of Time|The Weeknd|en|rnb,pop|romantic,sad|mid|night,drive|voice,melody
+Best Part|Daniel Caesar feat. H.E.R.|en|rnb|romantic,chill|slow|night,study|voice,melody
+Get You|Daniel Caesar feat. Kali Uchis|en|rnb|romantic,dreamy|slow|night|voice
+Snooze|SZA|en|rnb|romantic,chill|slow|night,drive|voice,beat
+Good Days|SZA|en|rnb|dreamy,chill|slow|night,study|lyrics,voice
+As It Was|Harry Styles|en|pop|sad,energy|fast|commute,drive|melody,beat
+Adore You|Harry Styles|en|pop|romantic,happy|mid|drive,commute|melody,voice
+Levitating|Dua Lipa|en|pop,electronic|happy,energy|fast|party,workout|beat
+Don't Start Now|Dua Lipa|en|pop,electronic|confident,energy|fast|party,workout|beat
+Cruel Summer|Taylor Swift|en|pop|romantic,energy|fast|drive,party|melody,lyrics
+cardigan|Taylor Swift|en|pop,indie|sad,dreamy|slow|night,study|lyrics,melody
+lovely|Billie Eilish & Khalid|en|pop|sad,dreamy|slow|night|voice,melody
+BIRDS OF A FEATHER|Billie Eilish|en|pop|romantic,dreamy|mid|drive,commute|melody,voice
+Creep|Radiohead|en|rock,indie|sad|mid|night|lyrics,voice
+Yellow|Coldplay|en|rock,pop|romantic,dreamy|mid|night,drive|melody,lyrics
+Viva La Vida|Coldplay|en|rock,pop|energy,confident|fast|drive,workout|melody
+Do I Wanna Know?|Arctic Monkeys|en|rock,indie|confident,romantic|mid|night,drive|beat
+Sunflower|Post Malone & Swae Lee|en|pop,hiphop|chill,happy|mid|drive,commute|melody,beat
+Circles|Post Malone|en|pop|sad,chill|mid|drive,commute|melody
+突然好想你|五月天|zh|pop,rock|sad|slow|night|lyrics,melody
+派對動物|五月天|zh|pop,rock|happy,energy|fast|party,workout|beat
+倔強|五月天|zh|rock,pop|confident,energy|fast|workout,commute|lyrics,melody
+知足|五月天|zh|pop|romantic,chill|slow|night|lyrics,melody
+想見你想見你想見你|八三夭|zh|pop,rock|sad,romantic|mid|drive,commute|melody,lyrics
+愛人錯過|告五人|zh|indie,pop,rock|sad,energy|mid|drive,commute|melody,beat
+披星戴月的想你|告五人|zh|indie,pop|sad,romantic|slow|night,drive|lyrics,melody
+在這座城市遺失了你|告五人|zh|indie,pop|sad|slow|night|lyrics,voice
+刻在我心底的名字|盧廣仲|zh|pop|sad,romantic|slow|night|lyrics,voice
+幾分之幾|盧廣仲|zh|pop,indie|chill,romantic|slow|night,study|lyrics,melody
+小幸運|田馥甄|zh|pop|romantic,sad|slow|night,commute|melody,voice
+你就不要想起我|田馥甄|zh|pop|sad|slow|night|lyrics,voice
+晴天|周杰倫|zh|pop|romantic,sad|mid|drive,commute|melody,lyrics
+七里香|周杰倫|zh|pop|romantic,dreamy|mid|drive,commute|melody
+稻香|周杰倫|zh|pop,hiphop|chill,happy|mid|drive,commute|lyrics,melody
+告白氣球|周杰倫|zh|pop|romantic,happy|mid|drive,party|melody,beat
+普通朋友|陶喆|zh|rnb,pop|sad,romantic|mid|night,drive|voice,melody
+愛很簡單|陶喆|zh|rnb,pop|romantic,chill|slow|night|voice,melody
+愛愛愛|方大同|zh|rnb|romantic,happy|mid|drive,commute|voice,beat
+Love Song|方大同|zh|rnb,pop|romantic,chill|slow|night,study|voice,melody
+浪費|林宥嘉|zh|pop|sad|slow|night|lyrics,voice
+兜圈|林宥嘉|zh|pop|romantic,dreamy|mid|drive,commute
